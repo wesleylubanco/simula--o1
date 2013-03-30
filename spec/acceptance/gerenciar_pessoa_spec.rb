@@ -1,0 +1,52 @@
+# coding: utf-8
+
+require 'spec_helper'
+
+feature 'gerenciar pessoa' do
+
+  scenario 'incluir pessoa' do # , :js => true  do
+
+    visit new_pessoa_path
+
+    preencher_e_verificar_pessoa
+
+    
+
+  end
+
+  scenario 'alterar pessoa' do #, :js => true  do
+
+    pessoa = FactoryGirl.create(:pessoa)
+
+    visit edit_pessoa_path(pessoa)
+
+    preencher_e_verificar_pessoa
+
+
+
+  end
+
+   scenario 'excluir pessoa' do #, :javascript => true  do
+
+       pessoa = FactoryGirl.create(:pessoa)
+
+        visit pessoas_path
+        click_link 'Excluir'
+
+    
+
+  end
+
+   def preencher_e_verificar_pessoa
+
+      fill_in 'Nome',  :with => "Manoel"
+      
+      
+      click_button 'Salvar'
+
+      page.should have_content 'Nome: Manoel'
+
+      
+
+   end
+end
